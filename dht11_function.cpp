@@ -26,3 +26,19 @@ void read_dht_11(){
       Serial.println(h1);
   }  
 }
+
+float readTemperature() {
+  float temperature = dht11.readTemperature(); // read temperature value
+  if (isnan(temperature)){
+     temperature = 0;
+  }
+  return temperature; // return the temperature value
+}
+
+float readHumidity() {
+  float humidity = dht11.readHumidity(); // read humidity value
+  if (isnan(humidity)){
+     humidity = 0;
+  }
+  return humidity; // return the humidity value
+}

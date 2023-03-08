@@ -4,5 +4,7 @@
 
 void setup_dht();
 void read_dht_11();
+float readTemperature();
+float readHumidity();
 
 #endif
