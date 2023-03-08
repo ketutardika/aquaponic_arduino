@@ -1,5 +1,5 @@
-#ifndef TURBIDITY_FUNCTION_H
-#define TURBIDITY_FUNCTION_H
+#ifndef SR03_TURBIDITY_FUNCTION_H
+#define SR03_TURBIDITY_FUNCTION_H
 #include <Arduino.h>
 
 void setup_turbidity();

@@ -1,5 +1,5 @@
-#ifndef PH_FUNCTIONS_H
-#define PH_FUNCTIONS_H
+#ifndef SR05_PH_FUNCTIONS_H
+#define SR05_PH_FUNCTIONS_H
 #include <Arduino.h>
 
 void setup_ph();

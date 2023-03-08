@@ -1,5 +1,5 @@
-#ifndef DHT11_FUNCTION_H
-#define DHT11_FUNCTION_H
+#ifndef SR01_DHT11_FUNCTION_H
+#define SR01_DHT11_FUNCTION_H
 #include <Arduino.h>
 
 void setup_dht();

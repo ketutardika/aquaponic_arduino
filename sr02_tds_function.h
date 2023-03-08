@@ -1,5 +1,5 @@
-#ifndef TDS_FUNCTION_H
-#define TDS_FUNCTION_H
+#ifndef SR02_TDS_FUNCTION_H
+#define SR02_TDS_FUNCTION_H
 #include <Arduino.h>
 
 void setup_tds();

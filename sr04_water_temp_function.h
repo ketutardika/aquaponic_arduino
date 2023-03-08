@@ -1,5 +1,5 @@
-#ifndef WATER_TEMP_FUNCTION_H
-#define WATER_TEMP_FUNCTION_H
+#ifndef SR04_WATER_TEMP_FUNCTION_H
+#define SR04_WATER_TEMP_FUNCTION_H
 #include <Arduino.h>
 
 void setup_water_temp();

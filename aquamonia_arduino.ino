@@ -8,11 +8,11 @@
 #include <SPI.h>   // Add Wifi Client
 #include <EEPROM.h>
 
-#include "dht11_function.h"
-#include "tds_function.h"
-#include "turbidity_function.h"
-#include "water_temp_function.h"
-#include "ph_function.h"
+#include "sr01_dht11_function.h"
+#include "sr02_tds_function.h"
+#include "sr03_turbidity_function.h"
+#include "sr04_water_temp_function.h"
+#include "sr05_ph_function.h"
 
 WiFiManager wifiManager;
 ESP8266WebServer server(80);
