@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <ArduinoJson.h>              // import DHT11 sensor
 #include <WiFiManager.h>
 #include <ESP8266WiFi.h>        //import ESP8266 WiFi library
@@ -6,6 +7,8 @@
 #include <WiFiClient.h>   
 #include <SPI.h>   // Add Wifi Client
 #include <EEPROM.h>
+
+#include "dht11_function.h"
 
 WiFiManager wifiManager;
 ESP8266WebServer server(80);
@@ -128,6 +131,7 @@ void handleRoot() {
 void setup() {
   Serial.begin(115200);
   EEPROM.begin(2048);
+  setup_dht();
   wifiManager.addParameter(&custom_name_server);
   wifiManager.addParameter(&custom_secret_key);
   wifiManager.addParameter(&custom_device_key);
@@ -157,21 +161,12 @@ void setup() {
   server.begin();
 
   delay(5000);
-  WiFi.localIP().toString().replace(".", "-");
-  String url = "http://" + WiFi.localIP().toString() + "/";
-  Serial.println(url);
-
-  if (!client.connect(WiFi.localIP(), 80)) {
-    Serial.println("Connection failed.");
-  } else {
-    Serial.println("Connected.");
-    client.print(String("GET ") + url + " HTTP/1.1\r\n" +
-                 "Host: " + WiFi.localIP().toString() + "\r\n" +
-                 "Connection: close\r\n\r\n");
-  }
 }
 
 void loop() {
+  Serial.println("Temperatur Reading: ");
+  read_dht_11();
+  delay(10000);
   server.handleClient();
   unsigned long currentMillis = millis();
   if (currentMillis - previousMillis >= interval) {
