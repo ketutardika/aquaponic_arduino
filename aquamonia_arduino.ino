@@ -9,7 +9,7 @@
 #include "sr05_ph_function.h"
 #include "sr06_sending_data.h"
 
-const int intervalSendEsp = 50;
+const int intervalSendEsp = 100;
 unsigned long previousMillis = 0;
 
 void setup() {

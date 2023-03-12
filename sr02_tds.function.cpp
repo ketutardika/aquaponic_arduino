@@ -1,6 +1,4 @@
 #include <Arduino.h>
-
-#include <EEPROM.h>
 #include "GravityTDS.h"
  
 #define TdsSensorPin A0
