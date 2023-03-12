@@ -12,6 +12,7 @@
 SoftwareSerial SerialMega(5, 6);
 
 void setup_sending_data(){
+  Serial.begin(9600);
   SerialMega.begin(9600);
   setup_dht();
   setup_tds();

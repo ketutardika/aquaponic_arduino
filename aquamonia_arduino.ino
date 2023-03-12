@@ -13,8 +13,9 @@ const int intervalSendEsp = 100;
 unsigned long previousMillis = 0;
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   setup_sending_data();
+  Serial.println("Preparing Data...");
   delay(5000);
 }
 
