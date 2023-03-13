@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#define SensorPin 57          // the pH meter Analog output is connected with the Arduino’s Analog
+#define SensorPin A2        // the pH meter Analog output is connected with the Arduino’s Analog
 unsigned long int avgValue;  //Store the average value of the sensor feedback
 float b;
 int buf[10],temp;

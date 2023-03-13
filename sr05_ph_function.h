@@ -5,5 +5,6 @@
 void setup_ph();
 void read_ph();
 float read_ph_return();
+double avergearray(int* arr, int number);
 
 #endif

@@ -3,7 +3,6 @@
 #include <Arduino.h>
 
 void setup_water_temp();
-void read_water_temp();
 float read_water_temp_value();
 
 #endif
