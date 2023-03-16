@@ -10,16 +10,27 @@
 
 //Initialise Arduino to NodeMCU (5=Rx & 6=Tx)
 SoftwareSerial SerialMega(5, 6);
+SoftwareSerial SerialESP(5, 6);
 
 void setup_sending_data(){
   Serial.begin(9600);
   SerialMega.begin(9600);
+  SerialESP.begin(9600);
   setup_dht();
   setup_tds();
   setup_turbidity();
   setup_water_temp();
   setup_ph();
 }
+
+void recieveIP() {
+  if (SerialESP.available() > 0) {
+    String ip = SerialESP.readString();
+    Serial.print("IP WiFi: ");
+    Serial.println(ip);
+  }
+}
+
 void loop_sending_data(){
   float temperature_sensor = readTemperature() > 0 ? readTemperature() : 0;
   float humidity_sensor = readHumidity() > 0 ? readHumidity() : 0;
@@ -27,6 +38,33 @@ void loop_sending_data(){
   float turbidity_sensor = read_turbidity_value() > 0 ? read_turbidity_value() : 0;
   float water_temp_sensor = read_water_temp_value() > 0 ? read_water_temp_value() : 0;
   float ph_sensor = read_ph_return() > 0 ? read_ph_return() : 0;
+
+  delay(2000);
+  SerialMega.print(temperature_sensor);
+  SerialMega.print(",");
+  SerialMega.print(humidity_sensor);
+  SerialMega.print(",");
+  SerialMega.print(tds_sensor);
+  SerialMega.print(",");
+  SerialMega.print(turbidity_sensor);
+  SerialMega.print(",");
+  SerialMega.print(water_temp_sensor);
+  SerialMega.print(",");
+  SerialMega.print(ph_sensor);
+  SerialMega.println();
+
+  Serial.print(temperature_sensor);
+  Serial.print(",");
+  Serial.print(humidity_sensor);
+  Serial.print(",");
+  Serial.print(tds_sensor);
+  Serial.print(",");
+  Serial.print(turbidity_sensor);
+  Serial.print(",");
+  Serial.print(water_temp_sensor);
+  Serial.print(",");
+  Serial.print(ph_sensor);
+  Serial.println();
 
   StaticJsonDocument<200> doc;
   doc["temperature_sensor"] = temperature_sensor;
@@ -37,8 +75,8 @@ void loop_sending_data(){
   doc["ph_sensor"] = ph_sensor;
 
   // Mengonversi objek JSON ke string
-  String jsonString;
-  serializeJson(doc, jsonString);
+ // String jsonString;
+  //serializeJson(doc, jsonString);
   // Mengirim data ke SerialNode
-  SerialMega.println(jsonString);
+  //SerialMega.println(jsonString);
 }

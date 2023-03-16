@@ -6,5 +6,7 @@ void setup_sending_data();
 void loop_sending_data();
 void readIpAddress();
 void printToLCD();
+void recieveIP();
+
 
 #endif

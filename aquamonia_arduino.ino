@@ -28,15 +28,27 @@ void setup() {
   powerOnLED(ledPin);
   lcd.init();
   lcd.backlight();
+  lcd.setCursor(1, 0);
+  lcd.print("AQUAMONIA  OS");
+  lcd.setCursor(2, 1);
+  lcd.print("Version 1.0");
+  delay(5000);
+  lcd.clear();
+  lcd.setCursor(1, 0);
+  lcd.print("Connecting WIFI");
+  delay(5000);
+  lcd.clear();
+  lcd.print("Preparing Data...");
   delay(5000);
   lcd.clear();
 }
 
 void loop() {  
+  recieveIP();
   unsigned long currentMillis = millis();
   if (currentMillis - previousMillis >= intervalSendEsp) {
     loop_sending_data();
-  }
+  }  
   printLCD();
 }
 
