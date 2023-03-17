@@ -10,12 +10,9 @@
 
 //Initialise Arduino to NodeMCU (5=Rx & 6=Tx)
 SoftwareSerial SerialMega(5, 6);
-SoftwareSerial SerialESP(5, 6);
 
 void setup_sending_data(){
-  Serial.begin(9600);
   SerialMega.begin(9600);
-  SerialESP.begin(9600);
   setup_dht();
   setup_tds();
   setup_turbidity();
@@ -23,12 +20,26 @@ void setup_sending_data(){
   setup_ph();
 }
 
-void recieveIP() {
-  if (SerialESP.available() > 0) {
-    String ip = SerialESP.readString();
-    Serial.print("IP WiFi: ");
-    Serial.println(ip);
+String recieveIP() {
+  String ipaddress = "Reading IP..";
+  if (SerialMega.available() > 0) {
+    String jsonString = "";
+    while (SerialMega.available()) {
+      jsonString += (char)SerialMega.read();
+    }
+    StaticJsonDocument<300> doc;
+    DeserializationError err = deserializeJson(doc, jsonString);
+    int ip1 = doc["ip1"].as<int>();
+    int ip2 = doc["ip2"].as<int>();
+    int ip3 = doc["ip3"].as<int>();
+    int ip4 = doc["ip4"].as<int>();
+    String ipaddress = String(ip1)+"."+String(ip2)+"."+String(ip3)+"."+String(ip4);
+    Serial.print("ip = ");
+    Serial.println(ipaddress);
+    return (ipaddress);
   }
+  return (ipaddress);
+  delay(3000);
 }
 
 void loop_sending_data(){

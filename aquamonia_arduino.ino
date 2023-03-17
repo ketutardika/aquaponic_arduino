@@ -5,7 +5,7 @@
 #include <LiquidCrystal_I2C.h>
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-#include "led_function.h"
+#include "helper_function.h"
 #include "sr01_dht11_function.h"
 #include "sr02_tds_function.h"
 #include "sr03_turbidity_function.h"
@@ -15,7 +15,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 
 const int ledPin = 53;
-const int buzzerPin = 3;
+const int buzzerPin = 9;
 const int intervalSendEsp = 100;
 unsigned long previousMillis = 0;
 float temps, hums, tdss, trbds, wtemps, phs;
@@ -23,8 +23,8 @@ float temps, hums, tdss, trbds, wtemps, phs;
 void setup() {
   Serial.begin(9600);
   setup_sending_data();
-  pinMode(buzzerPin, OUTPUT);
-  setupLED(ledPin);
+  setupHelper(ledPin,buzzerPin);
+  buzzerSingleBeep(buzzerPin, 1);
   powerOnLED(ledPin);
   lcd.init();
   lcd.backlight();
@@ -40,32 +40,15 @@ void setup() {
   lcd.clear();
   lcd.print("Preparing Data...");
   delay(5000);
-  lcd.clear();
+  lcd.clear();  
 }
 
 void loop() {  
-  recieveIP();
   unsigned long currentMillis = millis();
   if (currentMillis - previousMillis >= intervalSendEsp) {
     loop_sending_data();
   }  
   printLCD();
-}
-
-//fungsi untuk membuat dering pendek dengan duty cycle 50%,selama 0,8 s
-void dering_pendek(){
-digitalWrite(buzzerPin, HIGH);
-delay(400);
-digitalWrite(buzzerPin, LOW);
-delay(400);
-}
- 
-//fungsi untuk membuat dering pendek dengan duty cycle 50% ,selama 1,4 s
-void dering_panjang(){
-digitalWrite(buzzerPin, HIGH);
-delay(700); //memberikan nilai tunda 0.7 second
-digitalWrite(buzzerPin, LOW);
-delay(700);
 }
 
 void printLCD(){
@@ -75,6 +58,14 @@ void printLCD(){
   trbds = read_turbidity_value();
   wtemps = read_water_temp_value();
   phs = read_ph_return();
+  String ipAdd = recieveIP();
+
+  lcd.setCursor(0, 0);
+  lcd.print("IP Address");
+  lcd.setCursor(0, 1);
+  lcd.print(ipAdd);
+  delay(5000);
+  lcd.clear();
 
   lcd.setCursor(0, 0);
   lcd.print("TEMP");
@@ -106,4 +97,5 @@ void printLCD(){
   lcd.print(phs);
   delay(5000);
   lcd.clear();
+  
 }
