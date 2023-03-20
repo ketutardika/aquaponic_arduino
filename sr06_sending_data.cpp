@@ -21,7 +21,7 @@ void setup_sending_data(){
 }
 
 String recieveIP() {
-  String ipaddress = "Reading IP..";
+  String ipaddress = "0.0.0.0";
   if (SerialMega.available() > 0) {
     String jsonString = "";
     while (SerialMega.available()) {
@@ -41,12 +41,12 @@ String recieveIP() {
 }
 
 void loop_sending_data(){
-  float temperature_sensor = readTemperature() > 0 ? readTemperature() : -9;
-  float humidity_sensor = readHumidity() > 0 ? readHumidity() : -9;
-  float tds_sensor = read_tds_value() > 0 ? read_tds_value() : -9;
-  float turbidity_sensor = read_turbidity_value() > 0 ? read_turbidity_value() : -9;
-  float water_temp_sensor = read_water_temp_value() > 0 ? read_water_temp_value() : -9;
-  float ph_sensor = read_ph_return() > 0 ? read_ph_return() : -9;
+  float temperature_sensor = readTemperature() > 0 ? readTemperature() : -1;
+  float humidity_sensor = readHumidity() > 0 ? readHumidity() : -1;
+  float tds_sensor = read_tds_value() > 0 ? read_tds_value() : -1;
+  float turbidity_sensor = read_turbidity_value() > 0 ? read_turbidity_value() : -1;
+  float water_temp_sensor = read_water_temp_value() > 0 ? read_water_temp_value() : -1;
+  float ph_sensor = read_ph_return() > 0 ? read_ph_return() : -1;
   float blank = -1;
 
   delay(2000);

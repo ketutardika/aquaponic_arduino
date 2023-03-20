@@ -14,8 +14,8 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 #include "sr06_sending_data.h"
 
 
-const int ledPin = 53;
-const int buzzerPin = 9;
+const int ledPin = 3;
+const int buzzerPin = 4;
 const int intervalSendEsp = 100;
 unsigned long previousMillis = 0;
 float temps, hums, tdss, trbds, wtemps, phs;
