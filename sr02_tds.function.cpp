@@ -1,10 +1,13 @@
 #include <Arduino.h>
 #include "GravityTDS.h"
+#include "sr04_water_temp_function.h"
  
 #define TdsSensorPin A0
 GravityTDS gravityTds;
- 
-float temperature = 25,tdsValue = -1;
+
+float temperature = read_water_temp_value() > 0 ? read_water_temp_value() : 0; 
+float tdsValue = 0;
+
 
 
 void setup_tds(){
@@ -20,7 +23,11 @@ void read_tds(){
 float read_tds_value(){
     gravityTds.setTemperature(temperature);  // set the temperature and execute temperature compensation
     gravityTds.update();  //sample and calculate
-    tdsValue = gravityTds.getTdsValue();
+    if (isnan(temperature) || temperature == -1 || temperature == 0)  {
+      tdsValue=-1;
+    }
+    else {
+      tdsValue = gravityTds.getTdsValue();
+    }
     return tdsValue; // return the humidity value
-
 }

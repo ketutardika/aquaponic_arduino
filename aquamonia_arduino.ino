@@ -22,7 +22,8 @@ void setup() {
   Serial.begin(9600);
   setup_sending_data();
   setupHelper(ledPin,buzzerPin);
-  buzzerSingleBeep(buzzerPin, 1);  
+  buzzerSingleBeep(buzzerPin, 1);
+  powerOnLED(ledPin);  
   lcd.init();
   lcd.backlight();
   lcd.setCursor(1, 0);
@@ -40,9 +41,9 @@ void loop() {
   unsigned long currentMillis = millis();
   if (currentMillis - previousMillis >= intervalSendEsp) {
     loop_sending_data();
-    powerOnLED(ledPin);
-    delay(300);
     powerOffLED(ledPin);
+    delay(100);
+    powerOnLED(ledPin);
   }  
   printLCD();
 }
@@ -64,7 +65,7 @@ void printLCD(){
   lcd.print("HUM");
   lcd.setCursor(8, 1);
   lcd.print(hums);
-  delay(3000);
+  delay(4000);
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("TDS");
@@ -74,7 +75,7 @@ void printLCD(){
   lcd.print("TURB");
   lcd.setCursor(8, 1);
   lcd.print(trbds);
-  delay(3000);
+  delay(4000);
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("WTEMP");
@@ -84,12 +85,12 @@ void printLCD(){
   lcd.print("PH");
   lcd.setCursor(8, 1);
   lcd.print(phs);
-  delay(3000);
+  delay(4000);
   lcd.clear(); 
   lcd.setCursor(0, 0);
   lcd.print("IP Address");
   lcd.setCursor(0, 1);
   lcd.print(ipAdd);
-  delay(3000);
+  delay(2000);
   lcd.clear(); 
 }
