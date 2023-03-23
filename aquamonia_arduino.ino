@@ -1,6 +1,4 @@
 #include <Arduino.h>
-#include <SoftwareSerial.h>
-#include <ArduinoJson.h>
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
 LiquidCrystal_I2C lcd(0x27, 16, 2);
@@ -16,7 +14,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 const int ledPin = 3;
 const int buzzerPin = 4;
-const int intervalSendEsp = 100;
+const int intervalSendEsp = 10;
 unsigned long previousMillis = 0;
 float temps, hums, tdss, trbds, wtemps, phs;
 
@@ -24,22 +22,17 @@ void setup() {
   Serial.begin(9600);
   setup_sending_data();
   setupHelper(ledPin,buzzerPin);
-  buzzerSingleBeep(buzzerPin, 1);
-  powerOnLED(ledPin);
+  buzzerSingleBeep(buzzerPin, 1);  
   lcd.init();
   lcd.backlight();
   lcd.setCursor(1, 0);
   lcd.print("AQUAMONIA  OS");
   lcd.setCursor(2, 1);
   lcd.print("Version 1.0");
-  delay(5000);
-  lcd.clear();
-  lcd.setCursor(1, 0);
-  lcd.print("Connecting WIFI");
-  delay(5000);
+  delay(3000);
   lcd.clear();
   lcd.print("Preparing Data...");
-  delay(5000);
+  delay(3000);
   lcd.clear();  
 }
 
@@ -47,6 +40,9 @@ void loop() {
   unsigned long currentMillis = millis();
   if (currentMillis - previousMillis >= intervalSendEsp) {
     loop_sending_data();
+    powerOnLED(ledPin);
+    delay(300);
+    powerOffLED(ledPin);
   }  
   printLCD();
 }
@@ -61,13 +57,6 @@ void printLCD(){
   String ipAdd = recieveIP();
 
   lcd.setCursor(0, 0);
-  lcd.print("IP Address");
-  lcd.setCursor(0, 1);
-  lcd.print(ipAdd);
-  delay(5000);
-  lcd.clear();
-
-  lcd.setCursor(0, 0);
   lcd.print("TEMP");
   lcd.setCursor(0, 1);
   lcd.print(temps);
@@ -75,7 +64,7 @@ void printLCD(){
   lcd.print("HUM");
   lcd.setCursor(8, 1);
   lcd.print(hums);
-  delay(5000);
+  delay(3000);
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("TDS");
@@ -85,7 +74,7 @@ void printLCD(){
   lcd.print("TURB");
   lcd.setCursor(8, 1);
   lcd.print(trbds);
-  delay(5000);
+  delay(3000);
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("WTEMP");
@@ -95,7 +84,12 @@ void printLCD(){
   lcd.print("PH");
   lcd.setCursor(8, 1);
   lcd.print(phs);
-  delay(5000);
-  lcd.clear();
-  
+  delay(3000);
+  lcd.clear(); 
+  lcd.setCursor(0, 0);
+  lcd.print("IP Address");
+  lcd.setCursor(0, 1);
+  lcd.print(ipAdd);
+  delay(3000);
+  lcd.clear(); 
 }

@@ -37,7 +37,7 @@ String recieveIP() {
     return (ipaddress);
   }
   return (ipaddress);
-  delay(3000);
+  delay(100);
 }
 
 void loop_sending_data(){
@@ -49,7 +49,6 @@ void loop_sending_data(){
   float ph_sensor = read_ph_return() > 0 ? read_ph_return() : -1;
   float blank = -1;
 
-  delay(2000);
   SerialMega.print(temperature_sensor);
   SerialMega.print(",");
   SerialMega.print(humidity_sensor);
@@ -78,18 +77,4 @@ void loop_sending_data(){
   Serial.print(",");
   Serial.print(ph_sensor);
   Serial.println();
-
-  StaticJsonDocument<200> doc;
-  doc["temperature_sensor"] = temperature_sensor;
-  doc["humidity_sensor"] = humidity_sensor;
-  doc["tds_sensor"] = tds_sensor;
-  doc["turbidity_sensor"] = turbidity_sensor; 
-  doc["water_temp_sensor"] = water_temp_sensor;
-  doc["ph_sensor"] = ph_sensor;
-
-  // Mengonversi objek JSON ke string
- // String jsonString;
-  //serializeJson(doc, jsonString);
-  // Mengirim data ke SerialNode
-  //SerialMega.println(jsonString);
 }

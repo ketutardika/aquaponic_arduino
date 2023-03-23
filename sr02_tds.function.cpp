@@ -4,7 +4,7 @@
 #define TdsSensorPin A0
 GravityTDS gravityTds;
  
-float temperature = 25,tdsValue = 0;
+float temperature = 25,tdsValue = -1;
 
 
 void setup_tds(){
@@ -15,11 +15,6 @@ void setup_tds(){
 }
 
 void read_tds(){
-    gravityTds.setTemperature(temperature);  // set the temperature and execute temperature compensation
-    gravityTds.update();  //sample and calculate
-    tdsValue = gravityTds.getTdsValue();  // then get the value
-    Serial.print(tdsValue,0);
-    Serial.println("ppm");
 }
 
 float read_tds_value(){
