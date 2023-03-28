@@ -7,6 +7,7 @@
 #include "sr03_turbidity_function.h"
 #include "sr04_water_temp_function.h"
 #include "sr05_ph_function.h"
+#include "sr07_add_ultrasonic.h"
 
 //Initialise Arduino to NodeMCU (5=Rx & 6=Tx)
 SoftwareSerial SerialMega(0, 1);
@@ -47,6 +48,7 @@ void loop_sending_data(){
   float turbidity_sensor = read_turbidity_value() > 0 ? read_turbidity_value() : -1;
   float water_temp_sensor = read_water_temp_value() > 0 ? read_water_temp_value() : -1;
   float ph_sensor = read_ph_return() > 0 ? read_ph_return() : -1;
+  float waterlevels = read_w_level() > 0 ? read_w_level() : -1;
   float blank = -1;
 
   SerialMega.print(temperature_sensor);
@@ -76,5 +78,7 @@ void loop_sending_data(){
   Serial.print(water_temp_sensor);
   Serial.print(",");
   Serial.print(ph_sensor);
+  Serial.print(",");
+  Serial.print(waterlevels);  
   Serial.println();
 }

@@ -10,13 +10,14 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 #include "sr04_water_temp_function.h"
 #include "sr05_ph_function.h"
 #include "sr06_sending_data.h"
+#include "sr07_add_ultrasonic.h"
 
 
 const int ledPin = 3;
 const int buzzerPin = 4;
 const int intervalSendEsp = 10;
 unsigned long previousMillis = 0;
-float temps, hums, tdss, trbds, wtemps, phs;
+float temps, hums, tdss, trbds, wtemps, wlevels, phs;
 
 void setup() {
   Serial.begin(9600);
@@ -55,6 +56,8 @@ void printLCD(){
   trbds = read_turbidity_value();
   wtemps = read_water_temp_value();
   phs = read_ph_return();
+  wlevels = read_w_level();
+  String water_level = String(wlevels);
   String ipAdd = recieveIP();
 
   lcd.setCursor(0, 0);
@@ -86,7 +89,13 @@ void printLCD(){
   lcd.setCursor(8, 1);
   lcd.print(phs);
   delay(4000);
-  lcd.clear(); 
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("W LEVEL");
+  lcd.setCursor(0, 1);
+  lcd.print(water_level + " CM");
+  delay(2000);
+  lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("IP Address");
   lcd.setCursor(0, 1);
