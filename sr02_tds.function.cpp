@@ -5,7 +5,7 @@
 #define TdsSensorPin A0
 GravityTDS gravityTds;
 
-float temperature = read_water_temp_value() > 0 ? read_water_temp_value() : 0; 
+
 float tdsValue = 0;
 
 
@@ -21,6 +21,7 @@ void read_tds(){
 }
 
 float read_tds_value(){
+    float temperature = read_water_temp_value() > 0 ? read_water_temp_value() : 0; 
     gravityTds.setTemperature(temperature);  // set the temperature and execute temperature compensation
     gravityTds.update();  //sample and calculate
     if (isnan(temperature) || temperature == -1 || temperature == 0)  {
