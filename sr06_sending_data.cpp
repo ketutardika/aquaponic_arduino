@@ -63,6 +63,8 @@ void loop_sending_data(){
   SerialMega.print(",");
   SerialMega.print(ph_sensor);
   SerialMega.print(",");
+  SerialMega.print(waterlevels);
+  SerialMega.print(",");
   SerialMega.print(blank);
   SerialMega.print("#");
   SerialMega.println();
