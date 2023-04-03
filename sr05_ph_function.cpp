@@ -1,10 +1,11 @@
 #include <Arduino.h>
-#define SensorPin A2        // the pH meter Analog output is connected with the Arduino’s Analog
+#define SensorPin A1     // the pH meter Analog output is connected with the Arduino’s Analog
 unsigned long int avgValue;  //Store the average value of the sensor feedback
 float b;
 int buf[10],temp;
 
 void setup_ph(){
+  pinMode(SensorPin, INPUT);
 }
  
 void read_ph()
@@ -56,6 +57,6 @@ float read_ph_return()
   for(int i=2;i<8;i++)                      //take the average value of 6 center sample
     avgValue+=buf[i];
   float phValue=(float)avgValue*5.0/1024/6; //convert the analog into millivolt
-  phValue=3.5*phValue;
+  phValue=3.3*phValue;
   return(phValue);
 }

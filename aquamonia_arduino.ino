@@ -18,6 +18,7 @@ const int buzzerPin = 4;
 const int intervalSendEsp = 10;
 unsigned long previousMillis = 0;
 float temps, hums, tdss, trbds, wtemps, wlevels, phs;
+float inputVoltage1, inputVoltage2, inputVoltage3, inputVoltage4, inputVoltage5, inputVoltage6;
 
 void setup() {
   Serial.begin(9600);
@@ -39,6 +40,54 @@ void setup() {
 }
 
 void loop() {  
+  int analogValue1 = analogRead(A0);
+  inputVoltage1 = (analogValue1 * 5.0) / 1024.0;
+
+  int analogValue2 = analogRead(A1);
+  inputVoltage2 = (analogValue2 * 5.0) / 1024.0;
+
+  int analogValue3 = analogRead(A2);
+  inputVoltage3 = (analogValue3 * 5.0) / 1024.0;
+
+  int analogValue4 = analogRead(A3);
+  inputVoltage4 = (analogValue4 * 5.0) / 1024.0;
+
+  int analogValue5 = analogRead(A4);
+  inputVoltage5 = (analogValue5 * 5.0) / 1024.0;
+
+  int analogValue6 = analogRead(A5);
+  inputVoltage6 = (analogValue6 * 5.0) / 1024.0;
+
+  //Serial.print("Read 1 : ");
+  //Serial.print(analogValue1);
+  //Serial.print(" || ");
+  //Serial.println(inputVoltage1);
+
+  //Serial.print("Read 2 : ");
+  //Serial.print(analogValue2);
+  //Serial.print(" || ");
+  //Serial.println(inputVoltage2);
+
+  //Serial.print("Read 3 : ");
+  //Serial.print(analogValue3);
+  //Serial.print(" || ");
+  //Serial.println(inputVoltage3);
+
+  //Serial.print("Read  4 : ");
+  //Serial.print(analogValue4);
+  //Serial.print(" || ");
+  //Serial.println(inputVoltage4);
+
+  //Serial.print("Read 5 : ");
+  //Serial.print(analogValue5);
+  //Serial.print(" || ");
+  //Serial.println(inputVoltage5);
+
+  //Serial.print("Read 6 : ");
+  //Serial.print(analogValue6);
+  //Serial.print(" || ");
+  //Serial.println(inputVoltage6);
+
   unsigned long currentMillis = millis();
   if (currentMillis - previousMillis >= intervalSendEsp) {
     loop_sending_data();
