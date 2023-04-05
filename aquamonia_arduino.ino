@@ -105,7 +105,7 @@ void printLCD(){
   trbds = read_turbidity_value();
   wtemps = read_water_temp_value();
   phs = read_ph_return();
-  wlevels = read_w_level();
+  wlevels = -1;
   String water_level = String(wlevels);
   String ipAdd = recieveIP();
 
