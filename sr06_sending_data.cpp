@@ -45,7 +45,7 @@ void loop_sending_data(){
   float temperature_sensor = readTemperature() > 0 ? readTemperature() : -1;
   float humidity_sensor = readHumidity() > 0 ? readHumidity() : -1;
   float tds_sensor = read_tds_value() > 0 ? read_tds_value() : -1;
-  float turbidity_sensor = read_turbidity_value() > 0 ? read_turbidity_value() : -1;
+  float turbidity_sensor = read_turbidity_value(1) > 0 ? read_turbidity_value(1) : -1;
   float water_temp_sensor = read_water_temp_value() > 0 ? read_water_temp_value() : -1;
   float ph_sensor = read_ph_return() > 0 ? read_ph_return() : -1;
   float waterlevels = -1;

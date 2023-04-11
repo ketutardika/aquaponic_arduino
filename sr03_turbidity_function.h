@@ -5,6 +5,6 @@
 void setup_turbidity();
 void round_to_dp();
 void read_turbidity();
-float read_turbidity_value();
+float read_turbidity_value(byte type);
 
 #endif
