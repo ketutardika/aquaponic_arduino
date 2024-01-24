@@ -28,7 +28,7 @@ float read_turbidity_value(byte type)
   if(Turbidity_Sensor_Voltage < 2.5){
       ntu = -1;                                                                                                                                                                                                                                                                                                                                                                                                                         
     }else{
-      ntu = -1120.4*square(Turbidity_Sensor_Voltage)+ 5742.3*Turbidity_Sensor_Voltage - 4352.9; 
+      ntu = -1120.4*square(Turbidity_Sensor_Voltage)+ 5742.3*Turbidity_Sensor_Voltage - 4353.8; 
   } 
 
   if (type == 1){
